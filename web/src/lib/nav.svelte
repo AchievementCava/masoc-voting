@@ -1,5 +1,5 @@
 <script lang="ts">
-	import logo from "$lib/assets/logo.svg";
+	import logo from "$lib/assets/logo.png";
 	import { createEventDispatcher } from "svelte";
 	import Button from "./button.svelte";
 	import { navigating } from "../store";
@@ -17,7 +17,7 @@
 	<Button class="menu" icon={menuOpen ? "close" : "menu"} on:click={() => toggleMenu(menuOpen)} />
 	<img src={logo} alt="Logo" />
 	<!-- TODO: Replace society name with value from config.yml -->
-	<span>CSS Elects</span>
+	<span>MaSoc Elects</span>
 	{#if $navigating}
 		<div class="spinner"></div>
 	{/if}

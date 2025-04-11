@@ -6,7 +6,7 @@
 	import List from "$lib/list.svelte";
 	import Panel from "$lib/panel.svelte";
 
-	import run from "$lib/assets/run_for_election.svg";
+	import run from "$lib/assets/logo.png";
 	import { currentPoll, polls, error, fetching, user } from "../../../store";
 	import { goto } from "$app/navigation";
 	import { API } from "$lib/endpoints";
