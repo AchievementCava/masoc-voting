@@ -5,6 +5,7 @@ voting.sqlite3.db*
 test/users.json
 test/result.*.txt
 society-voting
+config.yml
 
 ### Go ###
 # Binaries for programs and plugins
