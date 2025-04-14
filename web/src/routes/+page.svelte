@@ -25,16 +25,11 @@
 </script>
 
 <svelte:head>
-	<title>CSS Elects</title>
+	<title>MaSoc Election Platform</title>
 </svelte:head>
 
 <Panel title="There are no upcoming elections">
-	<p>Check this space later for updates. Here's a random TeX for now.</p>
-	<img
-		src={`https://cssuob.github.io/resources/dinosaur/tex_${image}.svg`}
-		alt="A variant of TeX, the mascot of CSS"
-		height="100px"
-	/>
+	<p>Check this space later for updates.</p>
 </Panel>
 
 <style>
