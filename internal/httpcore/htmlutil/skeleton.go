@@ -16,14 +16,15 @@ func SkeletonPage(title string, content ...g.Node) g.Node {
 			Meta(g.Attr("name", "viewport"), g.Attr("content", "width=device-width, initial-scale=1")),
 			TitleEl(g.Text(title)),
 			Link(g.Attr("rel", "stylesheet"), g.Attr("type", "text/css"), g.Attr("href", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css")),
-			Link(g.Attr("rel", "icon"), g.Attr("href", "/favicon.svg"), g.Attr("type", "image/svg")),
+			Link(g.Attr("rel", "icon"), g.Attr("href", "/favicon.png"), g.Attr("type", "image/png")),
 			StyleEl(g.Raw(`body,html{height:100%}.form-signin{max-width:330px;padding:1rem}.form-signin .form-floating:focus-within{z-index:2}`)),
 		),
 		Body(
 			g.Attr("class", "d-flex align-items-center py-4 bg-body-tertiary"),
 			Main(
 				g.Attr("class", "form-signin w-100 m-auto"),
-				Img(g.Attr("src", "https://cssuob.github.io/resources/dinosaur/raster/tex_ballot.png"), g.Attr("style", "max-height: 72px; margin-bottom: 15px;")),
+				Img(g.Attr("src", "https://i.imgur.com/cPV4O6l.png"), g.Attr("style", "max-height: 200px; margin-bottom: 15px;")),
+
 				g.Group(content),
 				P(
 					g.Attr("class", "mt-3 mb-3 text-body-secondary"),
