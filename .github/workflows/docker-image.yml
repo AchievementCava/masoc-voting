@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: "ghcr.io/cssuob/society-voting"
+  IMAGE_NAME: "ghcr.io/achievementcava/masoc-voting"
 
 concurrency:
   group: build-docker-image
@@ -24,14 +24,14 @@ jobs:
     - name: Make image tags
       id: make_tags
       run: |
-        echo "::set-output name=LATEST::$IMAGE_NAME:latest"
-        echo "::set-output name=VERSIONED::$IMAGE_NAME:$(git rev-parse --short HEAD)"
+        echo "LATEST=${IMAGE_NAME}:latest" >> $GITHUB_OUTPUT
+        echo "VERSIONED=${IMAGE_NAME}:$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag ${{ steps.make_tags.outputs.LATEST }} --tag ${{ steps.make_tags.outputs.VERSIONED }}
       
     - name: Login to ghcr.io
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username cssuob --password-stdin
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username achievementcava --password-stdin
       
     - name: Push image
       run: docker push --all-tags $IMAGE_NAME

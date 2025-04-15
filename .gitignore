@@ -42,3 +42,6 @@ web/vite.config.ts.timestamp-*
 
 # IDE configs
 .vscode/
+
+# Python VENV
+/test/venv
