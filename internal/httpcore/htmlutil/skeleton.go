@@ -14,7 +14,7 @@ func SkeletonPage(title string, content ...g.Node) g.Node {
 		Head(
 			Meta(g.Attr("charset", "utf-8")),
 			Meta(g.Attr("name", "viewport"), g.Attr("content", "width=device-width, initial-scale=1")),
-			TitleEl(g.Text(title)),
+      TitleEl(g.Text("MaSoc Election Platform")),
 			Link(g.Attr("rel", "stylesheet"), g.Attr("type", "text/css"), g.Attr("href", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css")),
 			Link(g.Attr("rel", "icon"), g.Attr("href", "/favicon.png"), g.Attr("type", "image/png")),
 			StyleEl(g.Raw(`body,html{height:100%}.form-signin{max-width:330px;padding:1rem}.form-signin .form-floating:focus-within{z-index:2}`)),
