@@ -29,7 +29,7 @@
 	<svelte:fragment slot="header-action">
 		<Button text="Use a different name" kind="emphasis" on:click={() => dialog.showModal()} />
 	</svelte:fragment>
-	<p>Welcome to CSS' voting system! View, stand for, and vote in currently running elections.</p>
+	<p>Welcome to MaSoc's voting system! View, stand for, and vote in currently running elections.</p>
 	<br />
 
 	<span class="log-out">

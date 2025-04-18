@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-	<title>CSS Elects</title>
+	<title>MaSoc Election Platform</title>
 </svelte:head>
 
 <Panel title="There are no upcoming elections">
