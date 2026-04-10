@@ -49,7 +49,7 @@ func fetchMembershipPage() (string, error) {
 			"Expires":       {"0"},
 			"User-Agent":    {"Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"},
 		}).
-		Cookie(".ASPXAUTH", conf.SessionToken).
+		Cookie(".AspNet.SharedCookie", conf.SessionToken).
 		ToString(&pageData).
 		Fetch(ctx)
 
@@ -93,7 +93,7 @@ func parseGuildMemberPage(pageData string) ([]*GuildMember, error) {
 		)
 
 		if normalisedHeaderText == standardMembers || normalisedHeaderText == allCmtMembers {
-			table := selection.Find("table.msl_table")
+			table := selection.Find("table.table")
 			if table == nil {
 				err = fmt.Errorf("no table found in group %d", i)
 				return false
@@ -143,7 +143,7 @@ func extractMembersFromTable(table *goquery.Selection) (map[string]string, error
 		res = make(map[string]string)
 	)
 
-	table.Find("tr.msl_row,tr.msl_altrow").EachWithBreak(func(i int, selection *goquery.Selection) bool {
+	table.Find("tr:has(td)").EachWithBreak(func(i int, selection *goquery.Selection) bool {
 		err = nil
 
 		cols := selection.Find("td").Nodes

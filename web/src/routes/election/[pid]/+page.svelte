@@ -6,7 +6,7 @@
 	import List from "$lib/list.svelte";
 	import Panel from "$lib/panel.svelte";
 
-	import run from "$lib/assets/logo.png";
+	import run from "$lib/assets/run_for_election.svg";
 	import { currentPoll, polls, error, fetching, user } from "../../../store";
 	import { goto } from "$app/navigation";
 	import { API } from "$lib/endpoints";
@@ -28,11 +28,11 @@
 		}
 	}
 
-	const standOrWithdraw = async (id: number, stand: boolean) => {
+	const standOrWithdraw = async (id: number, stand: boolean, who?: string) => {
 		$fetching = true;
 		const response = await fetch(API.ELECTION_STAND, {
 			method: stand ? "POST" : "DELETE",
-			body: JSON.stringify({ id }),
+			body: JSON.stringify({ id, ...(who && { userID: who }) }),
 		});
 
 		if (response.ok) {
@@ -87,7 +87,7 @@
 </script>
 
 {#if poll && isElectionPoll(poll)}
-	<PollHeader poll={poll}></PollHeader>
+	<PollHeader {poll} />
 
 	{#if !poll.candidates.some((c) => c.isMe)}
 		<Banner title="Interested in running?" kind="emphasis">
@@ -119,6 +119,11 @@
 				</p>
 				{#if candidate.isMe}
 					<Button text="Withdraw" on:click={() => standOrWithdraw(poll.id ?? -1, false)} />
+				{:else if $user.isAdmin}
+					<Button
+						text="Remove"
+						on:click={() => standOrWithdraw(poll.id ?? -1, false, candidate.id)}
+					/>
 				{/if}
 			</li>
 		</List>
