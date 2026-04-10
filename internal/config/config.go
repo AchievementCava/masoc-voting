@@ -2,10 +2,11 @@ package config
 
 import (
 	"fmt"
-	"git.tdpain.net/pkg/cfger"
 	"log/slog"
 	"os"
 	"sync"
+
+	"git.tdpain.net/pkg/cfger"
 )
 
 type HTTP struct {
@@ -18,8 +19,9 @@ func (h *HTTP) Address() string {
 }
 
 type Guild struct {
-	SessionToken string
-	SocietyID    string
+	SessionToken            string
+	AutoRefreshSessionToken bool
+	SocietyID               string
 }
 
 type Database struct {
@@ -29,7 +31,6 @@ type Database struct {
 type Platform struct {
 	SocietyName         string
 	AdminToken          string
-	AutoRefreshAdminToken bool
 	SessionSigningToken string
 	DiscordWebhook      *DiscordWebhook
 }
@@ -68,8 +69,9 @@ func Get() *Config {
 				Port: cl.WithDefault("http.port", 8080).AsInt(),
 			},
 			Guild: &Guild{
-				SessionToken: cl.Required("guild.sessionToken").AsString(),
-				SocietyID:    cl.Required("guild.societyID").AsString(),
+				SessionToken:            cl.Required("guild.sessionToken").AsString(),
+				AutoRefreshSessionToken: cl.WithDefault("guild.autoRefreshSessionToken", false).AsBool(),
+				SocietyID:               cl.Required("guild.societyID").AsString(),
 			},
 			Database: &Database{
 				DSN: cl.WithDefault("database.dsn", "voting.sqlite3.db").AsString(),
@@ -77,7 +79,6 @@ func Get() *Config {
 			Platform: &Platform{
 				SocietyName:         cl.WithDefault("platform.societyName", "Society").AsString(),
 				AdminToken:          cl.Required("platform.adminToken").AsString(),
-				AutoRefreshAdminToken: cl.WithDefault("platform.autoRefreshAdminToken", false).AsBool(),
 				SessionSigningToken: cl.Get("platform.sessionSigningToken").AsString(),
 				DiscordWebhook: &DiscordWebhook{
 					URL:      cl.Get("platform.discordWebhook.url").AsString(),

@@ -33,36 +33,40 @@ func updateActiveToken(newToken string) {
 	activeSessionToken = newToken
 }
 
-func AutoRefreshAdminToken(ctx context.Context) {
+func AutoRefreshSessionToken(ctx context.Context) {
 	timer := time.NewTicker(time.Minute * 10)
 	defer timer.Stop()
+
+	slog.Debug("Automatic session token refresh loop started")
 
 	for {
 		select {
 		case <-ctx.Done():
 			return
 		case <-timer.C:
-			if err := refreshAdminToken(); err != nil {
-				slog.Error("refresh admin token", "error", err)
+			if err := refreshSessionToken(ctx); err != nil {
+				slog.Error("refresh session token", "error", err)
 			}
 		}
 	}
 }
 
-
-func refreshCookie(ctx context.Context) error {
-	conf := config.Get().Guild
+func refreshSessionToken(ctx context.Context) error {
+	currentToken := getActiveToken()
 
 	return requests.URL("https://www.guildofstudents.com/profile").
-		Cookie(".AspNet.SharedCookie", conf.AdminToken).
+		Cookie(".AspNet.SharedCookie", currentToken).
 		AddValidator(func(res *http.Response) error {
 			for _, cookie := range res.Cookies() {
-				if cookie.Name == ".AspNet.SharedCookie" && cookie.Value != conf.AdminToken {
-					conf.AdminToken = cookie.Value
+				slog.Debug("Checking cookie", "name", cookie.Name, "value", cookie.Value)
+				if cookie.Name == ".AspNet.SharedCookie" && cookie.Value != currentToken {
+					updateActiveToken(cookie.Value)
+					slog.Info("Session token refreshed")
+					return nil
 				}
 			}
+			slog.Debug("Session token update check performed but not changed")
 			return nil
 		}).
 		Fetch(ctx)
 }
-

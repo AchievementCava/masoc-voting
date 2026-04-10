@@ -12,6 +12,7 @@ import (
 	"github.com/CSSUoB/society-voting/internal/database"
 	"github.com/CSSUoB/society-voting/internal/discordWebhookNotify"
 	"github.com/CSSUoB/society-voting/internal/events"
+	"github.com/CSSUoB/society-voting/internal/guildScraper"
 	"github.com/CSSUoB/society-voting/internal/httpcore"
 )
 
@@ -53,8 +54,8 @@ func run() error {
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 
-	if conf.Platform.AutoRefreshAdminToken {
-		go guildScraper.AutoRefreshAdminToken(ctx)
+	if conf.Guild.AutoRefreshSessionToken {
+		go guildScraper.AutoRefreshSessionToken(ctx)
 	}
 
 	if os.Getenv("SOCIETY_VOTING_RESTART_ENABLED") != "" {
