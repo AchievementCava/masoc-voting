@@ -58,7 +58,6 @@ func refreshSessionToken(ctx context.Context) error {
 		Cookie(".AspNet.SharedCookie", currentToken).
 		AddValidator(func(res *http.Response) error {
 			for _, cookie := range res.Cookies() {
-				slog.Debug("Checking cookie", "name", cookie.Name, "value", cookie.Value)
 				if cookie.Name == ".AspNet.SharedCookie" && cookie.Value != currentToken {
 					updateActiveToken(cookie.Value)
 					slog.Info("Session token refreshed")
