@@ -53,6 +53,10 @@ func run() error {
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 
+	if conf.Platform.AutoRefreshAdminToken {
+		go guildScraper.AutoRefreshAdminToken(ctx)
+	}
+
 	if os.Getenv("SOCIETY_VOTING_RESTART_ENABLED") != "" {
 		slog.Info("restart shim enabled")
 		_, pollEndReceiver := events.NewReceiver(events.TopicPollEnded)
