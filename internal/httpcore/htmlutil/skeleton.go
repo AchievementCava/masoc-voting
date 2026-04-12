@@ -23,7 +23,7 @@ func SkeletonPage(title string, content ...g.Node) g.Node {
 			g.Attr("class", "d-flex align-items-center py-4 bg-body-tertiary"),
 			Main(
 				g.Attr("class", "form-signin w-100 m-auto"),
-			Img(g.Attr("src", "https://i.imgur.com/cPV4O6l.png"), g.Attr("style", "max-height: 200px; margin-bottom: 15px;")),
+				Img(g.Attr("src", "https://achievementcava.quest/syaidi.png"), g.Attr("style", "max-height: 200px; margin-bottom: 15px;")),
 				g.Group(content),
 				P(
 					g.Attr("class", "mt-3 mb-3 text-body-secondary"),
